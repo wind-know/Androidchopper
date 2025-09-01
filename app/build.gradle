@@ -1,0 +1,86 @@
+plugins {
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    id("kotlin-kapt") // 必须添加
+}
+
+android {
+    namespace 'com.example.androidchopper'
+    compileSdk 36
+
+    defaultConfig {
+        applicationId "com.example.androidchopper"
+        minSdk 28
+        targetSdk 36
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+    kotlinOptions {
+        jvmTarget = '11'
+    }
+    buildFeatures {
+        dataBinding = true
+        viewBinding true
+    }
+}
+
+dependencies {
+    // 基础Android库（使用版本目录统一管理）
+    implementation libs.androidx.core.ktx
+    implementation libs.androidx.appcompat
+    implementation libs.material
+    implementation libs.androidx.activity
+    implementation libs.androidx.constraintlayout
+
+    // 测试
+    testImplementation libs.junit
+    androidTestImplementation libs.androidx.junit
+    androidTestImplementation libs.androidx.espresso.core
+
+    // Kotlin协程（统一版本）
+    def coroutines_version = "1.10.2"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
+
+    // 生命周期组件
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.9.0"
+
+    // Room数据库（配套版本）
+    def room_version = "2.7.2"
+    implementation "androidx.room:room-runtime:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+
+    // ViewModel
+    implementation "androidx.activity:activity-ktx:1.10.1"
+    implementation "androidx.fragment:fragment-ktx:1.8.8"
+
+    // 腾讯云SDK（保持原样）
+    implementation 'com.tencentcloudapi:tencentcloud-sdk-java-common:3.1.1303'
+    implementation 'com.tencentcloudapi:tencentcloud-sdk-java-cvm:3.1.1300'
+    implementation 'com.qcloud.cos:cos-android:5.9.+'
+
+    implementation 'org.apache.commons:commons-lang3:3.18.0'
+
+    //debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.3'
+    // Retrofit 依赖（注意冒号是英文的，版本号前有冒号）
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    // 底部导航栏依赖
+    implementation 'com.github.ismaeldivita:chip-navigation-bar:1.4.0'
+    implementation 'com.oguzdev:CircularFloatingActionMenu:1.0.2'
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+}

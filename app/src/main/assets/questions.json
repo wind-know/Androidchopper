@@ -1,0 +1,162 @@
+[
+{
+"id": 1,
+"chapter": "Android基础",
+"section": "四大组件",
+"subTopic": "Activity",
+"content": "进程模式的作用是什么？",
+"answer": "因为Android平台资源有限，需要为不同进程设置优先级，以便系统资源紧张的情况下，将优先级低的进程杀死，以释放资源。"
+},
+{
+"id": 2,
+"chapter": "Android基础",
+"section": "四大组件",
+"subTopic": "Activity",
+"content": "进程模式有哪些分类？",
+"answer": "前台进程（当前交互的Activity、正在执行回调的Service）、可见进程（可见但是失去焦点的Activity、正在和可见Activity绑定的Service）、服务进程（已使用startService启动的Service的进程）、后台进程（当Activity的onStop被调用，但还没被销毁）、空白进程（当系统需要内存时，会先将背景进程清除，就成为了空白进程）。"
+},
+{
+"id": 3,
+"chapter": "Android基础",
+"section": "四大组件",
+"subTopic": "Activity",
+"content": "Activity的生命周期包括哪些方法？",
+"answer": "onCreate-> onRestart-> onStart-> onResume-> onPause（理解为失去焦点，但是并不是绝对的不可见）-> onStop（当前Activity不可见）-> onDestroy。"
+},
+{
+"id": 4,
+"chapter": "Android基础",
+"section": "四大组件",
+"subTopic": "Activity",
+"content": "Activity A启动Activity B时，生命周期如何变化？",
+"answer": "A:onPause()-> B:onCreate()-> A:onStart()-> B:onResume()-> A:onStop()。"
+},
+{
+"id": 5,
+"chapter": "Android基础",
+"section": "四大组件",
+"subTopic": "Activity",
+"content": "弹出Dialog对Activity的生命周期有什么影响？",
+"answer": "对Activity的生命周期没有影响，弹出Dialog、Toast、PopupWindow本质是通过WindowManger.addView展示，没有经过AMS，对生命周期没有影响（除非启动的是一个Theme为Dialog的Activity）。"
+},
+{
+"id": 6,
+"chapter": "Android基础",
+"section": "四大组件",
+"subTopic": "Activity",
+"content": "onStart和onResume的实质有什么不同？",
+"answer": "start和stop都是从Activity是否可见这个角度来回调，onResume和onPause都是从Activity是否位于前台角度来回调。"
+},
+{
+"id": 7,
+"chapter": "Android基础",
+"section": "四大组件",
+"subTopic": "Activity",
+"content": "为什么先执行B的OnResume，再执行A的onStop？",
+"answer": "为了更快启动Activity（一个Activity会占用一些系统资源，在onStop可以去释放一些资源。不推荐在onPause中执行）。"
+},
+{
+"id": 8,
+"chapter": "Android基础",
+"section": "四大组件",
+"subTopic": "Activity",
+"content": "系统配置发生改变（屏幕旋转）时，Activity的生命周期如何变化？",
+"answer": "onStop()->onSaveInstanceState()-> onDestroy()-> onCreate()-> onStart()-> onRestoreInstanceState()-> onResume()。"
+},
+{
+"id": 9,
+"chapter": "Android基础",
+"section": "四大组件",
+"subTopic": "Activity",
+"content": "Activity的重建机制是什么？",
+"answer": "就是在onStop之后，调用onSaveInstanceState将Activity的某些状态保存下来。然后在重新创建onStart之后调用onRestoreInstanceState把这些状态显示出来。（当Activity在异常情况下需要重新创建时，系统会默认保存当前Activity的视图结构。）"
+},
+{
+"id": 10,
+"chapter": "Android基础",
+"section": "四大组件",
+"subTopic": "Activity",
+"content": "onSaveInstanceState的调用时机是什么？",
+"answer": "按下Home键Activity进入后台、按下电源键、启动其他Activity、横竖屏切换。"
+},
+{
+"id": 11,
+"chapter": "Android基础",
+"section": "四大组件",
+"subTopic": "Activity",
+"content": "Activity保存数据的原理是什么？",
+"answer": "Activity会委Window去保存数据，接着Window委托上面的顶层容器（ViewGroup）去保存数据，是DecorView。顶层容器会通知它的子元素来保存数据（Activity有两个数据结构专门状态。）"
+},
+{
+"id": 12,
+"chapter": "Android基础",
+"section": "四大组件",
+"subTopic": "Activity",
+"content": "Activity恢复数据的原理是什么？",
+"answer": "保存时会自集每一个实现了状态保存和恢复方法的View状态，这些数据在调用onRestoreInstanceState方法时回传给View。"
+},
+{
+"id": 13,
+"chapter": "Android基础",
+"section": "四大组件",
+"subTopic": "Activity",
+"content": "Activity的启动模式（launchMode）有哪些？",
+"answer": "1. standard（每次启动Activity都会在启动它的Activity的任务栈栈顶创建一个实例）2.singleTop（如果目标Activity处于目标task栈顶，不会创建新的Activity实例。会将intent通过onNewIntent传递给它）3.singleTask（启动这类Activity，会寻找是否存在它想要的任务栈。如果不存在就创建一个任务栈，然后将Activity放到栈中。如果存在并且有当前Activity的实例，就会把该Activity以上的所有Activity实例弹出，让它来到栈顶，并且调用onNewIntent传递新的Intent给它。不创建Activity）4.singleInstance（模式的Activity只能单独地位于一个任务栈中）。"
+},
+{
+"id": 14,
+"chapter": "Android基础",
+"section": "四大组件",
+"subTopic": "Activity",
+"content": "allowTaskReparenting的作用是什么？",
+"answer": "允许Activity在任务栈之间进行迁移。例如应用A启动了ActivityC，这个时候C只能运行在A的任务栈中，但是ActivityC属于B应用。正常情况下，它的TaskAffinity肯定不能和A的任务栈相同（包名不同）。所以当B启动后，B会创建自己的任务栈，这个时候系统发现C原本想要的任务栈已经被创建，所以就把C从A的任务栈中转移过来。"
+},
+{
+"id": 15,
+"chapter": "Android基础",
+"section": "四大组件",
+"subTopic": "Activity",
+"content": "任务栈和返回栈的区别是什么？",
+"answer": "任务栈是APP层面的东西，Activity想要的任务栈（taskAffinity指定）。返回栈是Activity层面的，用户页面的返回依赖的是返回栈，一个返回栈中可能包含来自不同任务栈的Activity。（为了维护正确的回退栈关系）。"
+},
+{
+"id": 16,
+"chapter": "Android基础",
+"section": "四大组件",
+"subTopic": "Activity",
+"content": "IntentFilter的匹配规则是什么？",
+"answer": "action匹配规则：Intent中的action存在且必须和IntentFilter的其中一个action相同；category匹配规则：Intent中可以没有，一旦有必须和IntentFilter中的全部相同；data匹配规则：如果IntentFilter中存在，那么Intent也要有可匹配的data。"
+},
+{
+"id": 17,
+"chapter": "Android基础",
+"section": "四大组件",
+"subTopic": "Activity",
+"content": "onStop和onDestroy回调延时及延时10s的问题是什么？",
+"answer": "回调延时：ActivityA打开B，然后关闭B。此时如果关闭的B或打开的A往主线程的MessageQueue连续不断地post大量的msg，主线程会处理消息，不能向AMS发起IPC来进行B的销毁。延时10s：在返回A执行A的resume时候，也会向AMS自己的主线程发送一个msg，延时10s后执行（内容包括销毁B）。"
+},
+{
+"id": 18,
+"chapter": "Android基础",
+"section": "四大组件",
+"subTopic": "Service",
+"content": "Service的定义是什么？",
+"answer": "一个可以在后台长期运行且不需要和用户进行交互的应用组件，重要的意义是独立于Activity去进行工作，进行后台运行和跨进程访问。其依赖于创建Service所在的应用程序（默认运行在主线程）。"
+},
+{
+"id": 19,
+"chapter": "Android基础",
+"section": "四大组件",
+"subTopic": "Service",
+"content": "Service的分类有哪些？",
+"answer": "普通Service（必须重写onBind、在配置文件中进行注册）、前台Service（有一个正在运行的图标在系统状态栏显示，为了防止Service被回收）[在onCreate里面构建一个Notification、调用startForeground方法将通知显示出来]、系统Service（系统层面现有的Service）。"
+},
+{
+"id": 20,
+"chapter": "Android基础",
+"section": "四大组件",
+"subTopic": "Service",
+"content": "Service的生命周期包括哪些方法？",
+"answer": "onCreate-> onStartCommand-> onBind（bindService时调用，必须返回IBinder）-> onUnBind（unbindService与服务解绑）-> onDestroy。"
+}
+]
