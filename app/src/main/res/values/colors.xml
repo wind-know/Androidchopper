@@ -6,4 +6,8 @@
     <color name="home_gray">#5D5D5D</color>
     <color name="primary_text">#00BCD4</color>
     <color name="bg">#F5F5F5</color>
+    <color name="red">#F44336</color>      <!--  Material Design 红色 -->
+    <color name="orange">#FF9800</color>   <!-- Material Design 橙色 -->
+    <color name="blue">#2196F3</color>     <!-- Material Design 蓝色 -->
+    <color name="green">#4CAF50</color>    <!-- Material Design 绿色 -->
 </resources>

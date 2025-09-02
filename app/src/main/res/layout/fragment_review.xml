@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- 题目内容 -->
+    <TextView
+        android:id="@+id/tvQuestionContent"
+        android:textSize="18sp"
+        android:textColor="@android:color/black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!-- 状态显示图标 + 文字 -->
+    <LinearLayout
+        android:id="@+id/layoutStatus"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="8dp"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/ivStatusIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_status_default"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/tvStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="状态"
+            android:textSize="16sp"
+            android:paddingStart="8dp"
+            android:textColor="@android:color/darker_gray" />
+    </LinearLayout>
+
+    <!-- 四个状态按钮：忘记、模糊、认识、完全掌握 -->
+    <LinearLayout
+        android:id="@+id/layoutState"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:paddingTop="16dp">
+
+        <TextView
+            android:id="@+id/tvForgot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="忘记"
+            android:textSize="16sp"
+            android:padding="8dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground" />
+
+        <TextView
+            android:id="@+id/tvVague"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="模糊"
+            android:textSize="16sp"
+            android:padding="8dp"
+            android:layout_marginStart="16dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground" />
+
+        <TextView
+            android:id="@+id/tvKnown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="认识"
+            android:textSize="16sp"
+            android:padding="8dp"
+            android:layout_marginStart="16dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground" />
+
+        <TextView
+            android:id="@+id/tvMastered"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="完全掌握"
+            android:textSize="16sp"
+            android:padding="8dp"
+            android:layout_marginStart="16dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground" />
+    </LinearLayout>
+
+    <!-- 答案显示区域 -->
+    <TextView
+        android:id="@+id/tvAnswer"
+        android:textSize="16sp"
+        android:visibility="gone"
+        android:textColor="@android:color/holo_green_dark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="8dp" />
+
+    <!-- 底部导航：上一题 / 下一题 / 记错了 -->
+    <LinearLayout
+        android:id="@+id/layoutNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:visibility="gone"
+        android:paddingTop="24dp">
+
+        <TextView
+            android:id="@+id/tvPrev"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="上一个"
+            android:textSize="16sp"
+            android:padding="8dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground" />
+
+        <TextView
+            android:id="@+id/tvNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="下一个"
+            android:textSize="16sp"
+            android:padding="8dp"
+            android:layout_marginStart="16dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground" />
+
+        <TextView
+            android:id="@+id/tvMarkForgot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="记错了"
+            android:textSize="16sp"
+            android:textColor="@android:color/holo_red_dark"
+            android:padding="8dp"
+            android:layout_marginStart="16dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground" />
+    </LinearLayout>
+
+</LinearLayout>

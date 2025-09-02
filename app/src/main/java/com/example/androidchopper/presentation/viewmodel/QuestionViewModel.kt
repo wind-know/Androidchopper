@@ -99,17 +99,5 @@ class QuestionViewModel(private val repository: QuestionRepository) : ViewModel(
     fun toggleAnswerVisibility() {
         _isAnswerShown.update { !it }
     }
-    // 提交答案方法
-    fun submitAnswer(isCorrect: Boolean) {
-        viewModelScope.launch {
 
-            currentQuestion.value?.let { question ->
-                repository.updateQuestionStatus(
-                    questionId = question.id,
-                    isAnswered = true,
-                    isCorrect = isCorrect
-                )
-            }
-        }
-    }
 }

@@ -1,18 +1,31 @@
 package com.example.androidchopper.data.model
 import com.example.androidchopper.data.database.QuestionEntity
+enum class QuestionStatus(val value: Int) {
+    FORGOT(0),      // 忘记了
+    VAGUE(1),       // 模糊
+    KNOWN(2),       // 认识
+    MASTERED(3);    // 完全掌握
+
+    companion object {
+        fun fromValue(value: Int?): QuestionStatus? {
+            return values().find { it.value == value }
+        }
+    }
+}
+
 
 data class Question(
     val id: Int,
-    val chapter: String,       // 大章节（如"Android基础"）
-    val section: String,      // 小节（如"四大组件"）
-    val subTopic: String,     // 子主题（如"Activity"）
-    val content: String,      // 题干（如"进程模式"）
-    val answer: String,       // 答案详情
+    val chapter: String,
+    val section: String,
+    val subTopic: String,
+    val content: String,
+    val answer: String,
     var isAnswered: Boolean = false,
-    var isCorrect: Boolean? = null
+    val status: QuestionStatus = QuestionStatus.FORGOT  // 默认忘记
 )
 
-// 转换函数必须在类外部（或作为扩展函数）
+// 转换函数
 fun Question.toEntity() = QuestionEntity(
     id = id,
     chapter = chapter,
@@ -21,5 +34,5 @@ fun Question.toEntity() = QuestionEntity(
     content = content,
     answer = answer,
     isAnswered = isAnswered,
-    isCorrect = isCorrect
+    status = status?.value
 )

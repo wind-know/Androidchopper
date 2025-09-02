@@ -29,7 +29,6 @@ import kotlinx.coroutines.launch
 
 class MainActivity : BaseActivity() {
 
-    // region [常量定义]
     companion object {
         private const val ANIMATION_DELAY = 200L
         private const val SUB_BUTTON_SIZE_DP = 100
@@ -37,16 +36,12 @@ class MainActivity : BaseActivity() {
         private const val COORDINATOR_ANIM_DURATION = 500L
         private const val RETURN_ANIM_DURATION = 700L
     }
-    // endregion
 
-    // region [变量声明]
     private lateinit var binding: ActivityMainBinding
     private val viewModel: NavigationViewModel by viewModels()
     private var floatingActionMenu: FloatingActionMenu? = null
     private lateinit var fragmentManager: FragmentManager
-    // endregion
 
-    // region [生命周期方法]
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -59,9 +54,9 @@ class MainActivity : BaseActivity() {
         setupBackPressHandler()
         setupFabBaseListener()
 
-        if (savedInstanceState == null) {
-            showChapterList()
-        }
+//        if (savedInstanceState == null) {
+//            showChapterList()
+//        }
     }
 
     override fun onDestroy() {
@@ -69,7 +64,6 @@ class MainActivity : BaseActivity() {
         handler.removeCallbacksAndMessages(null)
         floatingActionMenu?.close(true)
     }
-    // endregion
 
     // region [导航相关功能]
     private fun setupNavigation() {
@@ -93,16 +87,11 @@ class MainActivity : BaseActivity() {
 
     private fun showNavigationInformation(navigationInfos: List<NavigationInfo>) {
         fragmentManager.beginTransaction().apply {
-            navigationInfos.forEach { info ->
+            navigationInfos.forEachIndexed { index, info ->
                 add(binding.fcvNavigation.id, info.fragment)
-                hide(info.fragment)
+                if (index != 0) hide(info.fragment) // 默认显示第一个
             }
-            setCustomAnimations(
-                R.anim.slide_in_right,
-                R.anim.slide_out_left,
-                R.anim.slide_in_left,
-                R.anim.slide_out_right
-            ).commit()
+            commit()
         }
 
         setupBottomNavigation(navigationInfos)
@@ -135,9 +124,11 @@ class MainActivity : BaseActivity() {
     }
 
     private fun showSelectedFragment(fragment: Fragment) {
-        fragmentManager.beginTransaction()
-            .replace(R.id.fcv_navigation, fragment)
-            .commit()
+        fragmentManager.beginTransaction().apply {
+            fragmentManager.fragments.forEach { hide(it) }
+            show(fragment)
+            commit()
+        }
     }
 
     private fun showChapterList() {
