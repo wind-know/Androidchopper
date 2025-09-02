@@ -72,6 +72,10 @@ class QuestionViewModel(private val repository: QuestionRepository) : ViewModel(
 
     val isAnswerShown: StateFlow<Boolean> = _isAnswerShown.asStateFlow()
 
+    // 添加这个方法
+    fun resetAnswerVisibility() {
+        _isAnswerShown.value = false
+    }
     //========== 操作方法 ==========//
     fun initChapter(chapter: String) {
         _selectedChapter.value = chapter
